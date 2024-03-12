@@ -13,12 +13,14 @@ public class Usuario {
     private int id;
     private String nombre;
     private String password;
+    private int rol; //0=usuario 1=admin
 
-    public Usuario(String nombre, String password) {
+    public Usuario(String nombre, String password, int rol) {
         id = idPublic;
         idPublic++;
         this.nombre = nombre;
         this.password = password;
+        this.rol = rol;
     }
 
     @Override

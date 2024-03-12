@@ -10,8 +10,13 @@ package com.mycompany.tpredes;
  * @author Eloy
  */
 public class TPRedes {
+    
+    public static int login(){
+        
+        return 0;
+    }
 
     public static void main(String[] args) {
-        System.out.println("Hello World!");
+        
     }
 }
