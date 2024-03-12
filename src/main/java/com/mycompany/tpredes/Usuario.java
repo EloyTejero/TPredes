@@ -8,20 +8,22 @@ package com.mycompany.tpredes;
  *
  * @author Eloy
  */
-public class Producto {
-    private String nombre;
+public class Usuario {
+    static int idPublic;
     private int id;
-    private float precio;
+    private String nombre;
+    private String password;
 
-    public Producto(String nombre, int id, float precio) {
+    public Usuario(String nombre, String password) {
+        id = idPublic;
+        idPublic++;
         this.nombre = nombre;
-        this.id = id;
-        this.precio = precio;
+        this.password = password;
     }
 
     @Override
     public String toString() {
-        return "Producto{" + "nombre=" + nombre + ", id=" + id + ", precio=" + precio + '}';
+        return "Usuario{" + "id=" + id + ", nombre=" + nombre + ", password=" + password + '}';
     }
     
 }
