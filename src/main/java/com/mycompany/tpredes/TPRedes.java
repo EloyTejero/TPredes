@@ -28,14 +28,9 @@ public class TPRedes {
         System.out.println("2. Ingreso producto");
         int op = in.nextInt();
         switch (op) {
-            case 1:
-                listarProductos();
-                break;
-            case 2:
-                
-                break;
-            default:
-                throw new AssertionError();
+            case 1 -> listarProductos();
+            case 2 -> ingresoProducto();
+            default -> throw new AssertionError();
         }
     }
     
@@ -59,7 +54,16 @@ public class TPRedes {
             int idAlmacen = stock.busquedaAlmacenIdPorProducto(id);
             stock.ingresoStock(idAlmacen, cantidad);
         } else{
-            
+            System.out.println("Ingrese producto");
+            System.out.print("Nombre: ");
+            String nombre = in.nextLine();
+            System.out.print("ID: ");
+            int id = in.nextInt();
+            System.out.println("Precio: ");
+            float precio = in.nextFloat();
+            System.out.println("Cantidad del producto: ");
+            int cantidad = in.nextInt();
+            stock.ingresoStock(new Almacen(new Producto(nombre, id, precio), cantidad));
         }
     }
 
@@ -72,5 +76,10 @@ public class TPRedes {
         
         stock.ingresoStock(new Almacen(pr1, 0));
         stock.ingresoStock(new Almacen(pr2, 10));
+        
+        while(true){
+            menu();
+        }
     }
+        
 }
