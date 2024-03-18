@@ -23,5 +23,9 @@ public class Producto {
     public String toString() {
         return "Producto{" + "nombre=" + nombre + ", id=" + id + ", precio=" + precio + '}';
     }
+
+    public int getId() {
+        return id;
+    }
     
 }

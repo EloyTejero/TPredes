@@ -40,7 +40,17 @@ public class Stock {
         almacenes.get(id).setCantidad(valor);
     }
     
-    public void eliminarStock(int id){
-        
+    public void eliminarStock(int id, int resta){
+        almacenes.get(id).restarProducto(resta);
+    }
+    
+    public int busquedaAlmacenIdPorProducto(int id){
+        for(int i=0;i<almacenes.size();i++){
+            int productoId = almacenes.get(i).getProducto().getId();
+            if(productoId == id){
+                return i;
+            }
+        }
+        return 0;
     }
 }

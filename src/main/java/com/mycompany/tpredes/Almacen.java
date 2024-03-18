@@ -25,9 +25,18 @@ public class Almacen {
     public void sumarProducto(int suma){
         cantidad += suma;
     }
+    
+    public void restarProducto(int cantidad){
+        this.cantidad-=cantidad;
+    }
 
     public void setCantidad(int cantidad) {
         this.cantidad = cantidad;
     }
+
+    public Producto getProducto() {
+        return producto;
+    }
+    
     
 }
