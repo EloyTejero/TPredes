@@ -9,8 +9,8 @@ package com.mycompany.tpredes;
  * @author Eloy
  */
 public class Almacen {
-    Producto producto;
-    int cantidad;
+    private Producto producto;
+    private int cantidad;
 
     public Almacen(Producto producto, int cantidad) {
         this.producto = producto;
@@ -22,5 +22,12 @@ public class Almacen {
         return "Almacen{" + "producto=" + producto.toString() + ", cantidad=" + cantidad + '}';
     }
     
+    public void sumarProducto(int suma){
+        cantidad += suma;
+    }
+
+    public void setCantidad(int cantidad) {
+        this.cantidad = cantidad;
+    }
     
 }

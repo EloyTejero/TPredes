@@ -20,19 +20,27 @@ public class Stock {
     }
     
     public String[] listarProductos(){
+        String listaProductos [] = new String[almacenes.size()];
         
-        return new String[0];
+        for(int i=0;i<almacenes.size();i++){
+            listaProductos[i] = almacenes.get(i).toString();
+        }
+        return listaProductos;
     }
     
-    public void ingresoStock(){
-        
+    public void ingresoStock(Almacen almacen){
+        almacenes.add(almacen);
     }
     
-    public void modificarStock(){
-        
+    public void ingresoStock(int id, int ingreso){
+        almacenes.get(id).sumarProducto(ingreso);
     }
     
-    public void eliminarStock(){
+    public void modificarStock(int id, int valor){
+        almacenes.get(id).setCantidad(valor);
+    }
+    
+    public void eliminarStock(int id){
         
     }
 }
