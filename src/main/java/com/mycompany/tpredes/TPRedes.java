@@ -15,23 +15,60 @@ import java.util.Scanner;
 public class TPRedes {
     
     static Stock stock = new Stock();
+    static ArrayList<Usuario> usuarios = new ArrayList<>();
+    static String usuarioActual = null;
     
-    public static int login(Usuario user){
+    public static void main(String[] args) {
+        Usuario admin = new Usuario("admin", "admin", 1);
+        Usuario user = new Usuario("user", "user", 0);
+        usuarios.add(admin);
+        usuarios.add(user);
         
-        return 0;
+        Producto pr1 = new Producto("choclo", 0, 15);
+        Producto pr2 = new Producto("atun", 1, 150);
+        
+        stock.ingresoStock(new Almacen(pr1, 0));
+        stock.ingresoStock(new Almacen(pr2, 10));
+        
+        login();
+        menu();
+    }
+    
+    public static void login(){
+        LoginService loginService = new LoginService(usuarios);
+        
+        do{
+            Scanner in = new Scanner(System.in);
+            System.out.print("Ingrese su usuario: ");
+            String user = in.nextLine();
+            System.out.print("Ingrese contraseña: ");
+            String password = in.nextLine();
+
+            if(loginService.login(user, password)){
+                System.out.println("Ingreso Exitoso");
+                usuarioActual = user;
+            }else{
+                System.out.println("Error en la contraseña o usuario");
+                System.out.println();
+            }
+        }while(usuarioActual==null);
     }
     
     public static void menu(){
-        Scanner in = new Scanner(System.in);
-        System.out.println("Opcciones");
-        System.out.println("1. Listar productos");
-        System.out.println("2. Ingreso producto");
-        int op = in.nextInt();
-        switch (op) {
-            case 1 -> listarProductos();
-            case 2 -> ingresoProducto();
-            default -> throw new AssertionError();
-        }
+        int op;
+        do {            
+            Scanner in = new Scanner(System.in);
+            System.out.println("Opcciones");
+            System.out.println("1. Listar productos");
+            System.out.println("2. Ingreso producto");
+            op = in.nextInt();
+            switch (op) {
+                case 1 -> listarProductos();
+                case 2 -> ingresoProducto();
+                default -> throw new AssertionError();
+            }
+        } while (op>0 && op<3);
+        
     }
     
     public static void listarProductos(){
@@ -46,39 +83,28 @@ public class TPRedes {
         System.out.println("1. Ingresar por id");
         System.out.println("2. Ingresar nuevo producto");
         int op = in.nextInt();
+        in.nextLine();
         if(op==1){
             System.out.print("Ingrese id: ");
             int id = in.nextInt();
+            in.nextLine();
             System.out.print("Ingrese cantidad: ");
             int cantidad = in.nextInt();
+            in.nextLine();
             int idAlmacen = stock.busquedaAlmacenIdPorProducto(id);
             stock.ingresoStock(idAlmacen, cantidad);
-        } else{
+        } else if(op==2){
             System.out.println("Ingrese producto");
             System.out.print("Nombre: ");
             String nombre = in.nextLine();
             System.out.print("ID: ");
             int id = in.nextInt();
+            in.nextLine();
             System.out.println("Precio: ");
             float precio = in.nextFloat();
             System.out.println("Cantidad del producto: ");
             int cantidad = in.nextInt();
             stock.ingresoStock(new Almacen(new Producto(nombre, id, precio), cantidad));
-        }
-    }
-
-    public static void main(String[] args) {
-        Usuario admin = new Usuario("admin", "admin", 1);
-        Usuario user = new Usuario("user", "user", 0);
-        
-        Producto pr1 = new Producto("choclo", 0, 15);
-        Producto pr2 = new Producto("atun", 1, 150);
-        
-        stock.ingresoStock(new Almacen(pr1, 0));
-        stock.ingresoStock(new Almacen(pr2, 10));
-        
-        while(true){
-            menu();
         }
     }
         

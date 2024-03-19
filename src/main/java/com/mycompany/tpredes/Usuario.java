@@ -27,5 +27,13 @@ public class Usuario {
     public String toString() {
         return "Usuario{" + "id=" + id + ", nombre=" + nombre + ", password=" + password + '}';
     }
+
+    public String getNombre() {
+        return nombre;
+    }
+
+    public String getPassword() {
+        return password;
+    }
     
 }
