@@ -1,8 +1,3 @@
-/*
- * Click nbfs://nbhost/SystemFileSystem/Templates/Licenses/license-default.txt to change this license
- * Click nbfs://nbhost/SystemFileSystem/Templates/Project/Maven2/JavaApp/src/main/java/${packagePath}/${mainClassName}.java to edit this template
- */
-
 package com.mycompany.tpredes;
 
 import java.util.ArrayList;
@@ -56,19 +51,23 @@ public class TPRedes {
     
     public static void menu(){
         int op;
-        do {            
-            Scanner in = new Scanner(System.in);
-            System.out.println("Opcciones");
-            System.out.println("1. Listar productos");
-            System.out.println("2. Ingreso producto");
-            op = in.nextInt();
-            switch (op) {
-                case 1 -> listarProductos();
-                case 2 -> ingresoProducto();
-                default -> throw new AssertionError();
-            }
-        } while (op>0 && op<3);
-        
+        if(usuarioActual.equals("admin")){
+            //menu admin
+            System.out.println("menu admin");
+        }else{
+            do {            
+                Scanner in = new Scanner(System.in);
+                System.out.println("Opcciones");
+                System.out.println("1. Listar productos");
+                System.out.println("2. Ingreso producto");
+                op = in.nextInt();
+                switch (op) {
+                    case 1 -> listarProductos();
+                    case 2 -> ingresoProducto();
+                    default -> throw new AssertionError();
+                }
+            } while (op>0 && op<3);
+        }
     }
     
     public static void listarProductos(){
