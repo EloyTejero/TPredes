@@ -25,8 +25,13 @@ public class TPRedes {
         stock.ingresoStock(new Almacen(pr1, 0));
         stock.ingresoStock(new Almacen(pr2, 10));
         
+        //UserManager u = new UserManager(usuarios);
+        System.out.println(u.login("a", "admin"));
+        /*
         login();
-        menu();
+        menu();*/
+        
+        System.out.println("asd".equals(null));
     }
     
     public static void login(){
