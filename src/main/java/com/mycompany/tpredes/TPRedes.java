@@ -11,13 +11,18 @@ public class TPRedes {
     
     static Stock stock = new Stock();
     static ArrayList<Usuario> usuarios = new ArrayList<>();
-    static String usuarioActual = null;
+    static Usuario usuarioActual = null;
     
     public static void main(String[] args) {
+        //lo siguiente para un metodo de booteo
+        UserManager userManager = UserManager.userManagerGetInstance();
+        
         Usuario admin = new Usuario("admin", "admin", Rol.ADMIN);
         Usuario user = new Usuario("user", "user", Rol.USER);
         usuarios.add(admin);
         usuarios.add(user);
+        
+        userManager.cargaUsers(usuarios);
         
         Producto pr1 = new Producto("choclo", 0, 15);
         Producto pr2 = new Producto("atun", 1, 150);
@@ -27,18 +32,18 @@ public class TPRedes {
         
         //UserManager u = new UserManager(usuarios);
         //System.out.println(u.login("a", "admin"));
-        /*
+        
         login();
-        menu();*/
+        /*menu();
         
         System.out.println("asd".equals(null));
         if(admin.getRol()== Rol.ADMIN){
             System.out.println("mamaita");
-        }
+        }*/
     }
     
     public static void login(){
-        LoginService loginService = new LoginService(usuarios);
+        UserManager userManager = UserManager.userManagerGetInstance();
         
         do{
             Scanner in = new Scanner(System.in);
@@ -46,15 +51,15 @@ public class TPRedes {
             String user = in.nextLine();
             System.out.print("Ingrese contraseña: ");
             String password = in.nextLine();
-
-            if(loginService.login(user, password)){
-                System.out.println("Ingreso Exitoso");
-                usuarioActual = user;
-            }else{
+            
+            usuarioActual = userManager.login(user, password);
+            if(usuarioActual==null){
                 System.out.println("Error en la contraseña o usuario");
                 System.out.println();
             }
         }while(usuarioActual==null);
+        
+        System.out.println("Ingreso Exitoso");
     }
     
     public static void menu(){

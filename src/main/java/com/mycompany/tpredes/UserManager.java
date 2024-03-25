@@ -8,7 +8,7 @@ public class UserManager {
     private static UserManager instancia;
     private final Map<String, Usuario> credenciales;
     
-    public UserManager userManagerGetInstance(){
+    public static UserManager userManagerGetInstance(){
         if(instancia==null){
             instancia = new UserManager();
         }
