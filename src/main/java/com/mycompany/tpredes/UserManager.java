@@ -8,20 +8,15 @@ public class UserManager {
     private static UserManager instancia;
     private final Map<String, Usuario> credenciales;
     
-    public UserManager userManagerGetInstance(ArrayList<Usuario> usuarios){
+    public UserManager userManagerGetInstance(){
         if(instancia==null){
-            instancia = new UserManager(usuarios);
+            instancia = new UserManager();
         }
         return instancia;
     }
     
-    private UserManager(ArrayList<Usuario>usuarios) {
+    private UserManager() {
         credenciales = new HashMap<>();
-        if(usuarios!=null){
-            for(int i=0;i<usuarios.size();i++){
-                credenciales.put(usuarios.get(i).getNombre(), usuarios.get(i));
-            }
-        }
     }
     
     public Usuario login(String nombre, String password) {
@@ -38,6 +33,7 @@ public class UserManager {
     }
     
     public void addUser(Usuario user){
+        if(credenciales.get(user.getNombre()))
         credenciales.put(user.getNombre(), user);
     }
     
@@ -45,4 +41,9 @@ public class UserManager {
         credenciales.remove(user.getNombre(),user);
     }
     
+    public void cargaUsers(ArrayList<Usuario>usuarios){
+        for(int i=0;i<usuarios.size();i++){
+            addUser(usuarios.get(i));
+        }
+    }
 }
