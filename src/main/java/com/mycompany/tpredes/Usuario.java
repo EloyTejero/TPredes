@@ -13,9 +13,9 @@ public class Usuario {
     private int id;
     private String nombre;
     private String password;
-    private int rol; //0=usuario 1=admin
+    private Rol rol;
 
-    public Usuario(String nombre, String password, int rol) {
+    public Usuario(String nombre, String password, Rol rol) {
         id = idPublic;
         idPublic++;
         this.nombre = nombre;
@@ -34,6 +34,10 @@ public class Usuario {
 
     public String getPassword() {
         return password;
+    }
+
+    public Rol getRol() {
+        return rol;
     }
     
 }

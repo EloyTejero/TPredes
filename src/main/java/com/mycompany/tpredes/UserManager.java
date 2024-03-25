@@ -33,8 +33,10 @@ public class UserManager {
     }
     
     public void addUser(Usuario user){
-        if(credenciales.get(user.getNombre()))
-        credenciales.put(user.getNombre(), user);
+        if(getUser(user.getNombre())==null){
+            credenciales.put(user.getNombre(), user);
+        }
+        //throw error si ya existe el usuario
     }
     
     public void deleteUser(Usuario user){
@@ -45,5 +47,13 @@ public class UserManager {
         for(int i=0;i<usuarios.size();i++){
             addUser(usuarios.get(i));
         }
+    }
+    
+    public Usuario getUser(String nombre){
+        return credenciales.get(nombre);
+    }
+    
+    public boolean isAdmin(Usuario user){
+        return user.getRol() == Rol.ADMIN;
     }
 }

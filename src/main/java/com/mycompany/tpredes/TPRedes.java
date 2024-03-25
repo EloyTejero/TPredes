@@ -14,8 +14,8 @@ public class TPRedes {
     static String usuarioActual = null;
     
     public static void main(String[] args) {
-        Usuario admin = new Usuario("admin", "admin", 1);
-        Usuario user = new Usuario("user", "user", 0);
+        Usuario admin = new Usuario("admin", "admin", Rol.ADMIN);
+        Usuario user = new Usuario("user", "user", Rol.USER);
         usuarios.add(admin);
         usuarios.add(user);
         
@@ -26,12 +26,15 @@ public class TPRedes {
         stock.ingresoStock(new Almacen(pr2, 10));
         
         //UserManager u = new UserManager(usuarios);
-        System.out.println(u.login("a", "admin"));
+        //System.out.println(u.login("a", "admin"));
         /*
         login();
         menu();*/
         
         System.out.println("asd".equals(null));
+        if(admin.getRol()== Rol.ADMIN){
+            System.out.println("mamaita");
+        }
     }
     
     public static void login(){
