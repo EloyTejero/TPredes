@@ -51,6 +51,12 @@ public class Stock {
                 return i;
             }
         }
-        return 0;
+        return -1;
     }
+
+    public Almacen getAlmacenenPorId(int idAlmacen) {
+        return almacenes.get(idAlmacen);
+    }
+    
+    
 }

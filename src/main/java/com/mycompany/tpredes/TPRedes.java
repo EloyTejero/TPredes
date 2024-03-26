@@ -34,7 +34,8 @@ public class TPRedes {
         //System.out.println(u.login("a", "admin"));
         
         login();
-        /*menu();
+        menu();
+        /*menu1();
         
         System.out.println("asd".equals(null));
         if(admin.getRol()== Rol.ADMIN){
@@ -63,24 +64,46 @@ public class TPRedes {
     }
     
     public static void menu(){
-        int op;
-        if(usuarioActual.equals("admin")){
-            //menu admin
-            System.out.println("menu admin");
-        }else{
-            do {
-                Scanner in = new Scanner(System.in);
-                System.out.println("Opcciones");
-                System.out.println("1. Listar productos");
-                System.out.println("2. Ingreso producto");
-                op = in.nextInt();
-                switch (op) {
-                    case 1 -> listarProductos();
-                    case 2 -> ingresoProducto();
-                    default -> throw new AssertionError();
-                }
-            } while (op>0 && op<3);
+        
+        UserManager userManager = UserManager.userManagerGetInstance();
+        if(userManager.isAdmin(usuarioActual)){
+            opcionesAdmin();
+        } else{
+            opcionesUser();
         }
+    }
+    
+    public static void opcionesUser(){
+        MenuManager menu = new MenuManager();
+        Scanner in = new Scanner(System.in);
+        int op;
+        do {
+            menu.menuUser();
+            op = in.nextInt();
+            in.nextLine();
+            switch (op) {
+                case 1 -> listarProductos();
+                case 2 -> venta();
+                default -> throw new AssertionError();
+            }
+        } while (op>0 && op<3);
+        
+    }
+    
+    public static void opcionesAdmin(){
+        MenuManager menu = new MenuManager();
+        Scanner in = new Scanner(System.in);
+        int op;
+        do {
+            menu.menuAdmin();
+            op = in.nextInt();
+            in.nextLine();
+            switch (op) {
+                case 1 -> listarProductos();
+                case 2 -> ingresoProducto();
+                default -> throw new AssertionError();
+            }
+        } while (true);
     }
     
     public static void listarProductos(){
@@ -118,6 +141,25 @@ public class TPRedes {
             int cantidad = in.nextInt();
             stock.ingresoStock(new Almacen(new Producto(nombre, id, precio), cantidad));
         }
+    }
+    
+    public static void venta(){
+        int idProducto, cantidadCompra;
+        Scanner in = new Scanner(System.in);
+        System.out.print("Ingrese el ID del producto: ");
+        idProducto = in.nextInt();
+        in.nextLine();
+        System.out.print("Ingrese la cantidad de producto: ");
+        cantidadCompra = in.nextInt();
+        
+        int idAlmacen = stock.busquedaAlmacenIdPorProducto(idProducto);
+        int cantidadProductoEnAlmacen = stock.getAlmacenenPorId(idAlmacen).getCantidad();
+        if(cantidadProductoEnAlmacen>=cantidadCompra){
+            stock.eliminarStock(idAlmacen, cantidadCompra);
+        }else{
+            System.out.println("Cantidad de producto insuficiente");
+        }
+        
     }
         
 }
