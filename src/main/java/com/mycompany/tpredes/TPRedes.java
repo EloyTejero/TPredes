@@ -32,9 +32,11 @@ public class TPRedes {
         
         //UserManager u = new UserManager(usuarios);
         //System.out.println(u.login("a", "admin"));
+        do {            
+            login();
+            menu();
+        } while (usuarioActual!=null);
         
-        login();
-        menu();
         /*menu1();
         
         System.out.println("asd".equals(null));
@@ -45,9 +47,18 @@ public class TPRedes {
     
     public static void login(){
         UserManager userManager = UserManager.userManagerGetInstance();
+        Scanner in = new Scanner(System.in);
         
         do{
-            Scanner in = new Scanner(System.in);
+            System.out.println("1. Ingreso");
+            System.out.println("2. Salir");
+            int op = in.nextInt();
+            in.nextLine();
+            if(op==2){
+                usuarioActual=null;
+                break;
+            }
+            
             System.out.print("Ingrese su usuario: ");
             String user = in.nextLine();
             System.out.print("Ingrese contraseña: ");
@@ -57,14 +68,18 @@ public class TPRedes {
             if(usuarioActual==null){
                 System.out.println("Error en la contraseña o usuario");
                 System.out.println();
+                continue;
             }
+            System.out.println("Ingreso Exitoso");
+            System.out.println("");
         }while(usuarioActual==null);
         
-        System.out.println("Ingreso Exitoso");
     }
     
     public static void menu(){
-        
+        if(usuarioActual==null){
+            return;
+        }
         UserManager userManager = UserManager.userManagerGetInstance();
         if(userManager.isAdmin(usuarioActual)){
             opcionesAdmin();
@@ -78,16 +93,16 @@ public class TPRedes {
         Scanner in = new Scanner(System.in);
         int op;
         do {
-            menu.menuUser();
+            menu.showMenuUser();
             op = in.nextInt();
             in.nextLine();
             switch (op) {
                 case 1 -> listarProductos();
                 case 2 -> venta();
-                default -> throw new AssertionError();
+                case 3 -> System.out.println("Cerrando");
+                default -> System.out.println("Opcion invalida");
             }
-        } while (op>0 && op<3);
-        
+        } while (op!=3);   
     }
     
     public static void opcionesAdmin(){
@@ -95,15 +110,18 @@ public class TPRedes {
         Scanner in = new Scanner(System.in);
         int op;
         do {
-            menu.menuAdmin();
+            menu.showMenuAdmin();
             op = in.nextInt();
             in.nextLine();
             switch (op) {
                 case 1 -> listarProductos();
-                case 2 -> ingresoProducto();
-                default -> throw new AssertionError();
+                case 2 -> venta();
+                case 3 -> ingresoProducto();
+                case 4 -> modificarStock();
+                case 8 -> System.out.println("Cerrando");
+                default -> System.out.println("Opcion invalida");
             }
-        } while (true);
+        } while (op!=8);
     }
     
     public static void listarProductos(){
@@ -160,6 +178,19 @@ public class TPRedes {
             System.out.println("Cantidad de producto insuficiente");
         }
         
+    }
+
+    private static void modificarStock() {
+        int idProducto, nuevaCantidad;
+        Scanner in = new Scanner(System.in);
+        System.out.print("Ingrese el ID del producto: ");
+        idProducto = in.nextInt();
+        in.nextLine();
+        System.out.print("Ingrese la nueva cantidad de producto: ");
+        nuevaCantidad = in.nextInt();
+        
+        int idAlmacen = stock.busquedaAlmacenIdPorProducto(idProducto);
+        stock.modificarStock(idAlmacen, nuevaCantidad);
     }
         
 }

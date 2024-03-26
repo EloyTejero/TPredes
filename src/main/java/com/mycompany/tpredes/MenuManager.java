@@ -5,13 +5,13 @@ package com.mycompany.tpredes;
  * @author Eloy
  */
 public class MenuManager {
-    public void menuUser(){
+    public void showMenuUser(){
         System.out.println("1. Ver stock");
         System.out.println("2. Añadir venta");
         System.out.println("3. Salir");
     }
     
-    public void menuAdmin(){
+    public void showMenuAdmin(){
         System.out.println("1. Ver stock");
         System.out.println("2. Añadir venta");
         System.out.println("3. Ingresar stock");
@@ -19,5 +19,6 @@ public class MenuManager {
         System.out.println("5. Eliminar Stock");
         System.out.println("6. Añadir usuario");
         System.out.println("7. Eliminar usuario");
+        System.out.println("8. Salir");
     }
 }

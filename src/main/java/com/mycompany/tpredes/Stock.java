@@ -32,12 +32,12 @@ public class Stock {
         almacenes.add(almacen);
     }
     
-    public void ingresoStock(int id, int ingreso){
-        almacenes.get(id).sumarProducto(ingreso);
+    public void ingresoStock(int index, int ingreso){
+        almacenes.get(index).sumarProducto(ingreso);
     }
     
-    public void modificarStock(int id, int valor){
-        almacenes.get(id).setCantidad(valor);
+    public void modificarStock(int index, int valor){
+        almacenes.get(index).setCantidad(valor);
     }
     
     public void eliminarStock(int id, int resta){
