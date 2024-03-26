@@ -68,7 +68,7 @@ public class TPRedes {
             //menu admin
             System.out.println("menu admin");
         }else{
-            do {            
+            do {
                 Scanner in = new Scanner(System.in);
                 System.out.println("Opcciones");
                 System.out.println("1. Listar productos");
