@@ -56,4 +56,11 @@ public class UserManager {
     public boolean isAdmin(Usuario user){
         return user.getRol() == Rol.ADMIN;
     }
+    
+    public void showUsers(){
+        for(String users:credenciales.keySet()){
+            Usuario u = credenciales.get(users);
+            System.out.println(u.toString());
+        }
+    }
 }

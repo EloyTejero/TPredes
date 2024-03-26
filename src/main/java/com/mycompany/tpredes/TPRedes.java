@@ -118,10 +118,14 @@ public class TPRedes {
                 case 2 -> venta();
                 case 3 -> ingresoProducto();
                 case 4 -> modificarStock();
-                case 8 -> System.out.println("Cerrando");
+                case 5 -> eliminarStock();
+                case 6 -> anadirUser();
+                case 7 -> eliminarUser();
+                case 8 -> verUsuarios();
+                case 9 -> System.out.println("Cerrando");
                 default -> System.out.println("Opcion invalida");
             }
-        } while (op!=8);
+        } while (op!=9);
     }
     
     public static void listarProductos(){
@@ -169,6 +173,8 @@ public class TPRedes {
         in.nextLine();
         System.out.print("Ingrese la cantidad de producto: ");
         cantidadCompra = in.nextInt();
+        in.nextLine();
+
         
         int idAlmacen = stock.busquedaAlmacenIdPorProducto(idProducto);
         int cantidadProductoEnAlmacen = stock.getAlmacenenPorId(idAlmacen).getCantidad();
@@ -188,9 +194,64 @@ public class TPRedes {
         in.nextLine();
         System.out.print("Ingrese la nueva cantidad de producto: ");
         nuevaCantidad = in.nextInt();
+        in.nextLine();
         
         int idAlmacen = stock.busquedaAlmacenIdPorProducto(idProducto);
         stock.modificarStock(idAlmacen, nuevaCantidad);
     }
+
+    private static void eliminarStock() {
+        int idProducto, cantidad;
+        Scanner in = new Scanner(System.in);
+        System.out.print("Ingrese el ID del producto: ");
+        idProducto = in.nextInt();
+        in.nextLine();
+        System.out.print("Ingrese la cantidad de producto a eliminar: ");
+        cantidad = in.nextInt();
+        in.nextLine();
         
+        int idAlmacen = stock.busquedaAlmacenIdPorProducto(idProducto);
+        int cantidadProductoEnAlmacen = stock.getAlmacenenPorId(idAlmacen).getCantidad();
+        if(cantidadProductoEnAlmacen>=cantidad){
+            stock.eliminarStock(idAlmacen, cantidad);
+        }else{
+            System.out.println("Cantidad de producto insuficiente");
+        }
+    }
+
+    private static void anadirUser() {
+        Scanner in = new Scanner(System.in);
+        System.out.print("Ingrese nombre usuario: ");
+        String nombre = in.nextLine();
+        System.out.print("Ingrese la contraseña: ");
+        String password = in.nextLine();
+        System.out.println("Ingrese rol: ");
+        System.out.println("1. admin");
+        System.out.println("2. user");
+        int op = in.nextInt();
+        in.nextLine();
+        Rol rol;
+        if(op==1){
+            rol = Rol.ADMIN;
+        } else{
+            rol = Rol.USER;
+        }
+        UserManager.userManagerGetInstance().addUser(new Usuario(nombre, password, rol));
+    }
+
+    private static void eliminarUser() {
+        UserManager userManager = UserManager.userManagerGetInstance();
+        userManager.showUsers();
+        Scanner in = new Scanner(System.in);
+        System.out.print("Ingrese el nombre del user a eliminar: ");
+        String user = in.nextLine();
+        Usuario usuario = userManager.getUser(user);
+        userManager.deleteUser(usuario);
+    }
+
+    private static void verUsuarios() {
+        UserManager userManager = UserManager.userManagerGetInstance();
+        userManager.showUsers();
+    }
+
 }

@@ -19,6 +19,7 @@ public class MenuManager {
         System.out.println("5. Eliminar Stock");
         System.out.println("6. Añadir usuario");
         System.out.println("7. Eliminar usuario");
-        System.out.println("8. Salir");
+        System.out.println("8. Ver usuarios");
+        System.out.println("9. Salir");
     }
 }
